@@ -6,6 +6,16 @@
   <title>Zaberman MVP | Items</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .tooltip {
+      display: none;
+    }
+
+    .tooltip-parent:hover .tooltip {
+      display: block;
+    }
+  </style>
 </head>
 
 <body class="bg-slate-100 text-slate-700">
@@ -110,12 +120,11 @@
               <div class="flex items-center gap-3">
                 <h1 class="text-2xl font-bold text-slate-800">Items for Estimate</h1>
 
-                <div class="relative group">
+                <div class="relative tooltip-parent">
                   <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
+                  <div class="tooltip absolute z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
                     <p><b>Назначение:</b> экран брокера для быстрого формирования состава груза и условий расчёта.</p>
-                    <p class="mt-2"><b>Принцип:</b> item-level поля отделены от access-level и estimate-level правил.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> Item, Access Conditions и Estimate Options должны быть разными сущностями/блоками данных.</p>
+                    <p class="mt-2"><b>Принцип:</b> item-level, access-level и estimate-level логика разделены.</p>
                   </div>
                 </div>
 
@@ -138,25 +147,15 @@
           </div>
         </section>
 
+        <!-- Main Grid -->
         <div class="grid grid-cols-12 gap-6">
 
-          <!-- Main Content -->
+          <!-- Left Content -->
           <div class="col-span-9 space-y-6">
 
             <!-- Estimate Level Options -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="font-bold text-slate-800">Estimate-Level Options</h3>
-
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> общие условия расчёта всего estimate.</p>
-                    <p class="mt-2"><b>Важно:</b> Basic Liability и Full Coverage разделены. Basic Liability не является платной страховкой полной стоимости.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> insurance_type хранится на уровне Estimate, а item values используются только при Full Coverage / Declared Value.</p>
-                  </div>
-                </div>
-              </div>
+              <h3 class="font-bold text-slate-800 mb-4">Estimate-Level Options</h3>
 
               <div class="grid grid-cols-4 gap-4 text-sm">
                 <div>
@@ -215,18 +214,7 @@
 
             <!-- Access Conditions -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="font-bold text-slate-800">Access Conditions</h3>
-
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> условия доступа относятся к адресу pickup/delivery, а не к отдельному item.</p>
-                    <p class="mt-2"><b>Почему важно:</b> если будет несколько pickup или delivery addresses, stairs/elevator должны считаться по адресу.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> Access Conditions хранить на уровне Stop / Address, не в item table.</p>
-                  </div>
-                </div>
-              </div>
+              <h3 class="font-bold text-slate-800 mb-4">Access Conditions</h3>
 
               <div class="grid grid-cols-2 gap-4 text-sm">
                 <div class="border border-slate-200 rounded-xl p-4">
@@ -286,18 +274,7 @@
             <!-- Items Table -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
               <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
-                  <h3 class="font-bold text-slate-800">Item-Level Data</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                      <p><b>Назначение:</b> таблица содержит только данные, относящиеся к конкретному item.</p>
-                      <p class="mt-2"><b>Item-level flags:</b> Fragile, Non-stackable, Crating.</p>
-                      <p class="mt-2"><b>Не включать сюда:</b> stairs, elevator, storage, exclusive delivery. Это уровни Address / Estimate.</p>
-                    </div>
-                  </div>
-                </div>
+                <h3 class="font-bold text-slate-800">Item-Level Data</h3>
 
                 <div class="flex gap-3">
                   <input class="border rounded-lg px-3 py-2 text-sm w-56" placeholder="Search item..." />
@@ -316,8 +293,8 @@
                       <th class="text-left px-3 py-3">H</th>
                       <th class="text-left px-3 py-3">Weight</th>
                       <th class="text-left px-3 py-3">Qty</th>
-                      <th class="text-left px-3 py-3">Item Value</th>
-                      <th class="text-center px-3 py-3">Use for Coverage</th>
+                      <th class="text-left px-3 py-3">Value</th>
+                      <th class="text-center px-3 py-3">Coverage</th>
                       <th class="text-center px-3 py-3">Fragile</th>
                       <th class="text-center px-3 py-3">Non-stack</th>
                       <th class="text-center px-3 py-3">Crate</th>
@@ -331,11 +308,10 @@
                   </thead>
 
                   <tbody class="divide-y divide-slate-200">
-                    <tr>
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-56" value="Concrete Table" />
-                      </td>
 
+                    <!-- Row 1 -->
+                    <tr>
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-56" value="Concrete Table" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-32">
                           <option>Furniture</option>
@@ -344,30 +320,16 @@
                           <option>Appliance</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="140" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="50" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="20" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-20" value="500" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="1" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-24" value="0" /></td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-44">
                           <option>Custom Crate</option>
@@ -379,7 +341,6 @@
                           <option>White Glove Protection</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-36">
                           <option>2 people</option>
@@ -387,24 +348,15 @@
                           <option>Special</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3 font-semibold">81.02</td>
                       <td class="px-3 py-3 font-semibold text-amber-700">128.00</td>
-
-                      <td class="px-3 py-3">
-                        <span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs">Needs Review</span>
-                      </td>
-
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-64" value="Heavy, non-stackable" />
-                      </td>
+                      <td class="px-3 py-3"><span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs">Needs Review</span></td>
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-64" value="Heavy, non-stackable" /></td>
                     </tr>
 
+                    <!-- Row 2 -->
                     <tr>
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-56" value="Glass Monitor" />
-                      </td>
-
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-56" value="Glass Monitor" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-32">
                           <option>Electronics</option>
@@ -413,30 +365,16 @@
                           <option>Appliance</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="30" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="8" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="22" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-20" value="25" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="2" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-24" value="600" /></td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-44">
                           <option>TV / Monitor Box</option>
@@ -448,7 +386,6 @@
                           <option>White Glove Protection</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-36">
                           <option>Standard</option>
@@ -456,24 +393,15 @@
                           <option>Special</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3 font-semibold">6.11</td>
                       <td class="px-3 py-3 font-semibold">8.00</td>
-
-                      <td class="px-3 py-3">
-                        <span class="px-2 py-1 rounded bg-green-100 text-green-700 text-xs">Calculated</span>
-                      </td>
-
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-64" value="Fragile electronics" />
-                      </td>
+                      <td class="px-3 py-3"><span class="px-2 py-1 rounded bg-green-100 text-green-700 text-xs">Calculated</span></td>
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-64" value="Fragile electronics" /></td>
                     </tr>
 
+                    <!-- Row 3 -->
                     <tr>
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-56" value="Vintage Chair" />
-                      </td>
-
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-56" value="Vintage Chair" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-32">
                           <option>Furniture</option>
@@ -482,30 +410,16 @@
                           <option>Appliance</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="28" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="30" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="36" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-20" value="45" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-16" value="4" /></td>
                       <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-24" value="900" /></td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" checked class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
-                      <td class="px-3 py-3 text-center">
-                        <input type="checkbox" class="accent-teal-500" />
-                      </td>
-
+                      <td class="px-3 py-3 text-center"><input type="checkbox" checked class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
+                      <td class="px-3 py-3 text-center"><input type="checkbox" class="accent-teal-500" /></td>
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-44">
                           <option>Blanket Wrap</option>
@@ -517,7 +431,6 @@
                           <option>White Glove Protection</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3">
                         <select class="border rounded-lg px-2 py-2 w-36">
                           <option>Standard</option>
@@ -525,18 +438,12 @@
                           <option>Special</option>
                         </select>
                       </td>
-
                       <td class="px-3 py-3 font-semibold">17.50</td>
                       <td class="px-3 py-3 font-semibold">17.50</td>
-
-                      <td class="px-3 py-3">
-                        <span class="px-2 py-1 rounded bg-green-100 text-green-700 text-xs">Calculated</span>
-                      </td>
-
-                      <td class="px-3 py-3">
-                        <input class="border rounded-lg px-2 py-2 w-64" value="Standard handling" />
-                      </td>
+                      <td class="px-3 py-3"><span class="px-2 py-1 rounded bg-green-100 text-green-700 text-xs">Calculated</span></td>
+                      <td class="px-3 py-3"><input class="border rounded-lg px-2 py-2 w-64" value="Standard handling" /></td>
                     </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -550,17 +457,7 @@
 
             <!-- Quote Rules -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="font-bold text-slate-800">Quote Rules Applied</h3>
-
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> показать применённые правила до перехода в Cost Breakdown.</p>
-                    <p class="mt-2"><b>Используется для:</b> быстрой проверки логики расчёта брокером, CEO и разработчиком.</p>
-                  </div>
-                </div>
-              </div>
+              <h3 class="font-bold text-slate-800 mb-4">Quote Rules Applied</h3>
 
               <div class="grid grid-cols-3 gap-3 text-sm">
                 <div class="p-3 rounded-lg bg-amber-50 text-amber-700">Non-stackable increases effective volume</div>
@@ -574,339 +471,92 @@
 
           </div>
 
-            <!-- Right Summary -->
-            <aside class="col-span-3">
-              <div class="sticky top-24 space-y-6">
-            
-                <!-- Items Summary -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-slate-800">Items Summary</h3>
-            
-                    <div class="relative group">
-                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-            
-                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                        <p><b>Назначение:</b> агрегировать item-level данные для quote calculation.</p>
-            
-                        <p class="mt-2">
-                          Используется для определения:
-                          vehicle fit, liability coverage,
-                          effective volume и operational impact.
-                        </p>
-                      </div>
-                    </div>
+          <!-- Right Summary -->
+          <aside class="col-span-3">
+            <div class="sticky top-24 space-y-6">
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Items Summary</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between"><span>Status</span><b class="text-amber-600">Needs Review</b></div>
+                  <div class="flex justify-between"><span>Item Lines</span><b>3</b></div>
+                  <div class="flex justify-between"><span>Total Qty</span><b>7</b></div>
+                  <div class="flex justify-between"><span>Total Weight</span><b>730 lb</b></div>
+                  <div class="flex justify-between"><span>Physical Volume</span><b>104.63 cu ft</b></div>
+                  <div class="flex justify-between"><span>Effective Volume</span><b class="text-amber-700">153.50 cu ft</b></div>
+                  <div class="flex justify-between border-t pt-3"><span>Vehicle Fit</span><b>Sprinter 488</b></div>
+                </div>
+              </section>
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Flags Summary</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between"><span>Fragile Items</span><b>2</b></div>
+                  <div class="flex justify-between"><span>Non-stackable</span><b>1</b></div>
+                  <div class="flex justify-between"><span>Crated Items</span><b>1</b></div>
+                  <div class="flex justify-between"><span>Heavy Handling</span><b>1</b></div>
+                  <div class="flex justify-between border-t pt-3"><span>Access Conditions</span><b>Stairs @ Delivery</b></div>
+                </div>
+              </section>
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Liability / Insurance</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between"><span>Selected Type</span><b>Basic Liability</b></div>
+                  <div class="flex justify-between"><span>Basic Coverage</span><b>$438</b></div>
+                  <div class="flex justify-between"><span>Declared Value</span><b>$1,500</b></div>
+                  <div class="flex justify-between"><span>Full Coverage Fee</span><b>$45</b></div>
+                  <div class="flex justify-between border-t pt-3"><span>Applied Fee</span><b>$0</b></div>
+                </div>
+                <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
+                  Basic Liability = Total Weight × $0.60/lb<br>
+                  Full Coverage Fee = Declared Value × Rate
+                </div>
+              </section>
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Pricing Impact</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between"><span>Packaging</span><b>$48</b></div>
+                  <div class="flex justify-between"><span>Storage</span><b>$18</b></div>
+                  <div class="flex justify-between"><span>Access Fees</span><b>$25</b></div>
+                  <div class="flex justify-between"><span>Heavy Handling</span><b>$72</b></div>
+                  <div class="flex justify-between"><span>Non-stackable</span><b>$36</b></div>
+                  <div class="flex justify-between border-t pt-3"><span>Items Cost Impact</span><b>$602</b></div>
+                </div>
+              </section>
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Estimated Price Preview</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between"><span>Operational Cost</span><b>$871</b></div>
+                  <div class="flex justify-between"><span>Packaging</span><b>$48</b></div>
+                  <div class="flex justify-between"><span>Insurance Fee</span><b>$0</b></div>
+                  <div class="flex justify-between"><span>Storage</span><b>$18</b></div>
+                  <div class="flex justify-between"><span>Margin</span><b>$254</b></div>
+                  <div class="flex justify-between border-t pt-3 text-base">
+                    <span class="font-semibold">Estimated Final Price</span>
+                    <b class="text-teal-600">$1,190</b>
                   </div>
-            
-                  <div class="space-y-3 text-sm">
-            
-                    <div class="flex justify-between">
-                      <span>Status</span>
-                      <b class="text-amber-600">Needs Review</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Item Lines</span>
-                      <b>3</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Total Qty</span>
-                      <b>7</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Total Weight</span>
-                      <b>730 lb</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Physical Volume</span>
-                      <b>104.63 cu ft</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Effective Volume</span>
-                      <b class="text-amber-700">153.50 cu ft</b>
-                    </div>
-            
-                    <div class="flex justify-between border-t pt-3">
-                      <span>Vehicle Fit</span>
-                      <b>Sprinter 488</b>
-                    </div>
-            
-                  </div>
-                </section>
-            
-                <!-- Flags Summary -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-slate-800">Flags Summary</h3>
-            
-                    <div class="relative group">
-                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-            
-                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                        <p><b>Назначение:</b> показать ключевые ограничения загрузки и обработки.</p>
-            
-                        <p class="mt-2">
-                          Используется для быстрого operational review
-                          перед отправкой estimate.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="space-y-3 text-sm">
-            
-                    <div class="flex justify-between">
-                      <span>Fragile Items</span>
-                      <b>2</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Non-stackable</span>
-                      <b>1</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Crated Items</span>
-                      <b>1</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Heavy Handling</span>
-                      <b>1</b>
-                    </div>
-            
-                    <div class="flex justify-between border-t pt-3">
-                      <span>Access Conditions</span>
-                      <b>Stairs @ Delivery</b>
-                    </div>
-            
-                  </div>
-                </section>
-            
-                <!-- Liability / Insurance -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-slate-800">Liability / Insurance</h3>
-            
-                    <div class="relative group">
-                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-            
-                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-            
-                        <p>
-                          <b>Basic Liability:</b>
-                          базовая ответственность перевозчика
-                          $0.60/lb.
-                        </p>
-            
-                        <p class="mt-2">
-                          <b>Full Coverage:</b>
-                          дополнительное платное покрытие
-                          полной стоимости.
-                        </p>
-            
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="space-y-3 text-sm">
-            
-                    <div class="flex justify-between">
-                      <span>Selected Type</span>
-                      <b>Basic Liability</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Basic Coverage</span>
-                      <b>$438</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Declared Value</span>
-                      <b>$1,500</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Full Coverage Fee</span>
-                      <b>$45</b>
-                    </div>
-            
-                    <div class="flex justify-between border-t pt-3">
-                      <span>Applied Fee</span>
-                      <b>$0</b>
-                    </div>
-            
-                  </div>
-            
-                  <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
-                    Basic Liability = Total Weight × $0.60/lb<br>
-                    Full Coverage Fee = Declared Value × Rate
-                  </div>
-            
-                </section>
-            
-                <!-- Pricing Impact -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-slate-800">Pricing Impact</h3>
-            
-                    <div class="relative group">
-                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-            
-                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-            
-                        <p>
-                          <b>Назначение:</b>
-                          показать влияние item-level условий
-                          на operational cost.
-                        </p>
-            
-                        <p class="mt-2">
-                          Это не финальный breakdown,
-                          а preview operational impact.
-                        </p>
-            
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="space-y-3 text-sm">
-            
-                    <div class="flex justify-between">
-                      <span>Packaging</span>
-                      <b>$48</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Storage</span>
-                      <b>$18</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Access Fees</span>
-                      <b>$25</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Heavy Handling</span>
-                      <b>$72</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Non-stackable</span>
-                      <b>$36</b>
-                    </div>
-            
-                    <div class="flex justify-between border-t pt-3">
-                      <span>Items Cost Impact</span>
-                      <b>$602</b>
-                    </div>
-            
-                  </div>
-                </section>
-            
-                <!-- Estimated Price Preview -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-slate-800">Estimated Price Preview</h3>
-            
-                    <div class="relative group">
-                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-            
-                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-            
-                        <p>
-                          <b>Назначение:</b>
-                          предварительный preview итоговой стоимости.
-                        </p>
-            
-                        <p class="mt-2">
-                          Значения являются предварительными
-                          и могут измениться после полного
-                          operational breakdown.
-                        </p>
-            
-                        <p class="mt-2">
-                          Финальный расчет выполняется
-                          в разделе Cost Breakdown.
-                        </p>
-            
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="space-y-3 text-sm">
-            
-                    <div class="flex justify-between">
-                      <span>Operational Cost</span>
-                      <b>$871</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Packaging</span>
-                      <b>$48</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Insurance Fee</span>
-                      <b>$0</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Storage</span>
-                      <b>$18</b>
-                    </div>
-            
-                    <div class="flex justify-between">
-                      <span>Margin</span>
-                      <b>$254</b>
-                    </div>
-            
-                    <div class="flex justify-between border-t pt-3 text-base">
-                      <span class="font-semibold">Estimated Final Price</span>
-                      <b class="text-teal-600">$1,190</b>
-                    </div>
-            
-                  </div>
-            
-                  <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-500">
-                    Final price is rounded up to nearest $10.
-                  </div>
-            
-                </section>
-            
-                <!-- Next Step -->
-                <section class="bg-white rounded-xl border border-slate-200 p-5">
-            
-                  <h3 class="font-bold text-slate-800 mb-4">Next Step</h3>
-            
-                  <div class="space-y-3">
-            
-                    <a href="breakdown.html"
-                       class="block w-full text-center px-4 py-3 rounded-lg bg-teal-500 text-white font-semibold hover:bg-teal-600">
-                      Open Cost Breakdown
-                    </a>
-            
-                    <a href="index.html"
-                       class="block w-full text-center px-4 py-3 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
-                      Back to Calculation
-                    </a>
-            
-                  </div>
-            
-                </section>
-            
-              </div>
-            </aside>
+                </div>
+                <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-500">
+                  Final price is rounded up to nearest $10.
+                </div>
+              </section>
+
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Next Step</h3>
+                <div class="space-y-3">
+                  <a href="breakdown.html" class="block w-full text-center px-4 py-3 rounded-lg bg-teal-500 text-white font-semibold hover:bg-teal-600">Open Cost Breakdown</a>
+                  <a href="index.html" class="block w-full text-center px-4 py-3 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">Back to Calculation</a>
+                </div>
+              </section>
+
+            </div>
+          </aside>
+
+        </div>
+        <!-- End Main Grid -->
 
         <!-- BA Notes -->
         <section class="mt-6">
@@ -917,7 +567,7 @@
 
                 <div>
                   <h3 class="font-semibold text-slate-800">Business Analysis Notes</h3>
-                  <p class="text-xs text-slate-400 mt-1">MVP v0.3 · Items · Simplified broker quote table</p>
+                  <p class="text-xs text-slate-400 mt-1">MVP v0.4 · Items · Optimized broker quote table</p>
                 </div>
               </div>
 
@@ -932,14 +582,12 @@
                 <h4 class="font-semibold text-slate-800 mb-2">Общая цель страницы</h4>
                 <p class="text-sm text-slate-600 leading-6">
                   Экран Items предназначен для быстрого формирования состава груза брокером.
-                  Это не eBOL, не driver workflow и не warehouse screen.
-                  Главная задача — собрать минимальные данные по items и условиям, которые влияют на quote.
+                  Главная задача - собрать данные по позициям и условиям, которые влияют на квоту.
                 </p>
               </div>
 
               <div class="mb-6">
                 <h4 class="font-semibold text-slate-800 mb-2">Разделение уровней логики</h4>
-
                 <ul class="space-y-2 text-sm text-slate-600 list-disc pl-5">
                   <li><b>Estimate-level:</b> insurance type, storage days, exclusive delivery, white glove.</li>
                   <li><b>Access-level:</b> stairs, elevator unavailable, floor, long carry, pickup/delivery conditions.</li>
@@ -949,7 +597,6 @@
 
               <div class="mb-6">
                 <h4 class="font-semibold text-slate-800 mb-2">Используемые формулы</h4>
-
                 <div class="space-y-3 text-sm">
                   <div class="bg-white border border-slate-200 rounded-lg p-4">
                     <p class="font-medium text-slate-800">Physical Volume</p>
@@ -959,17 +606,13 @@
                   <div class="bg-white border border-slate-200 rounded-lg p-4">
                     <p class="font-medium text-slate-800">Effective Volume</p>
                     <code class="block mt-2 text-slate-600">Physical Volume × constraint coefficient</code>
-                    <p class="text-slate-500 mt-2">
-                      Constraint coefficient применяется для non-stackable, fragile, crating и других ограничений загрузки.
-                    </p>
+                    <p class="text-slate-500 mt-2">Constraint coefficient применяется для non-stackable, fragile, crating и других ограничений загрузки.</p>
                   </div>
 
                   <div class="bg-white border border-slate-200 rounded-lg p-4">
                     <p class="font-medium text-slate-800">Basic Liability Coverage</p>
                     <code class="block mt-2 text-slate-600">Total Weight × $0.60/lb</code>
-                    <p class="text-slate-500 mt-2">
-                      Это базовая ответственность перевозчика, не full coverage.
-                    </p>
+                    <p class="text-slate-500 mt-2">Это базовая ответственность перевозчика, не full coverage.</p>
                   </div>
 
                   <div class="bg-white border border-slate-200 rounded-lg p-4">
@@ -986,7 +629,6 @@
 
               <div class="mb-6">
                 <h4 class="font-semibold text-slate-800 mb-2">Packaging Dictionary MVP</h4>
-
                 <ul class="space-y-2 text-sm text-slate-600 list-disc pl-5">
                   <li>None</li>
                   <li>Blanket Wrap</li>
@@ -1000,7 +642,6 @@
 
               <div>
                 <h4 class="font-semibold text-slate-800 mb-2">Требования к разработке</h4>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                   <div class="bg-white border border-slate-200 rounded-lg p-3">estimate_items table</div>
                   <div class="bg-white border border-slate-200 rounded-lg p-3">access_conditions per stop/address</div>
