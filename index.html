@@ -103,88 +103,74 @@
 
       <div class="p-6">
 
-        <!-- Header -->
-        <section class="bg-white rounded-xl border border-slate-200 p-5 mb-6 flex justify-between items-start">
-          <div>
-            <div class="flex items-center gap-3">
-              <h1 class="text-2xl font-bold text-slate-800">Estimate Draft</h1>
-
-              <div class="relative group">
-                <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                  <p><b>Назначение:</b> основной экран быстрого расчёта quote брокером.</p>
-                  <p class="mt-2"><b>Используется для:</b> ввода клиента, маршрута, услуг, состава груза и получения предварительной стоимости.</p>
-                  <p class="mt-2"><b>Как реализовать:</b> форма создаёт Estimate, который связан с Lead, Customer, Items, Route и Pricing Breakdown.</p>
-                </div>
+        <!-- Page Header -->
+        <section class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-3">
+                <h1 class="text-2xl font-bold text-slate-800">Estimate Draft</h1>
+                <span class="px-3 py-1 text-xs rounded-full bg-amber-100 text-amber-700 font-semibold">Draft</span>
+                <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700 font-semibold">Formula v1.0</span>
               </div>
 
-              <span class="px-3 py-1 text-xs rounded-full bg-amber-100 text-amber-700 font-semibold">Draft</span>
+              <p class="text-sm text-slate-500 mt-1">
+                Fast quote screen for broker calculation. Detailed item and cost logic are separated into Items and Cost Breakdown.
+              </p>
             </div>
 
-            <p class="text-sm text-slate-500 mt-1">
-              Pricing engine MVP for interstate bulky-item delivery
-            </p>
-          </div>
-
-          <div class="flex gap-3">
-            <button class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">Save Draft</button>
-            <button class="px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-600">Generate Estimate</button>
-            <button class="px-4 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-900">Convert to Invoice</button>
+            <div class="flex gap-3">
+              <button class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">Save Draft</button>
+              <a href="items.html" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">Open Items</a>
+              <a href="breakdown.html" class="px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-600">Open Breakdown</a>
+            </div>
           </div>
         </section>
 
         <div class="grid grid-cols-12 gap-6">
 
-          <!-- Left column -->
+          <!-- Left Column -->
           <div class="col-span-8 space-y-6">
 
-            <!-- Customer -->
+            <!-- Customer / Lead -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
               <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
-                  <h3 class="text-lg font-bold text-slate-800">Customer / Lead</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                      <p><b>Назначение:</b> связать расчёт с клиентом и источником лида.</p>
-                      <p class="mt-2"><b>Используется для:</b> создания Estimate, последующей отправки quote и конвертации в Invoice / Order.</p>
-                      <p class="mt-2"><b>Как реализовать:</b> сущности Lead и Customer должны быть связаны через CRM ID или внутренний customer_id.</p>
-                    </div>
-                  </div>
-                </div>
-
+                <h3 class="font-bold text-slate-800">Customer / Lead</h3>
                 <button class="text-sm text-teal-600 font-semibold">Open Kommo Lead</button>
               </div>
 
-              <div class="grid grid-cols-3 gap-4">
+              <div class="grid grid-cols-3 gap-4 text-sm">
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Customer Name</label>
+                  <label class="text-xs text-slate-400">Customer Name</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="John Smith" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Phone</label>
+                  <label class="text-xs text-slate-400">Phone</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="+1 555 0147" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Email</label>
+                  <label class="text-xs text-slate-400">Email</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="john@email.com" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Lead Source</label>
+                  <label class="text-xs text-slate-400">Lead Source</label>
                   <select class="mt-1 w-full border rounded-lg px-3 py-2">
                     <option>Kommo</option>
-                    <option>AptDeco</option>
                     <option>Website</option>
+                    <option>AptDeco</option>
                     <option>Manual</option>
                   </select>
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Owner</label>
+                  <label class="text-xs text-slate-400">Owner</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="Sales Team" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Estimate Status</label>
+                  <label class="text-xs text-slate-400">Estimate Status</label>
                   <select class="mt-1 w-full border rounded-lg px-3 py-2">
                     <option>Draft</option>
                     <option>Sent</option>
@@ -195,312 +181,344 @@
               </div>
             </section>
 
-            <!-- Route -->
+            <!-- Route / Dates -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="text-lg font-bold text-slate-800">Route & Zones</h3>
-
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> определить маршрут, зоны, расстояние и тип доставки.</p>
-                    <p class="mt-2"><b>Используется для:</b> расчёта mileage, zone surcharge, tolls, parking risk и delivery availability.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> адреса должны геокодироваться через Google Maps API / Mapbox, затем попадать в zone mapping и distance calculation.</p>
-                  </div>
-                </div>
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-slate-800">Route & Delivery Dates</h3>
+                <span class="text-xs text-slate-400">Route frequency: every 10 days</span>
               </div>
 
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-3 gap-4 text-sm">
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Pickup Address</label>
+                  <label class="text-xs text-slate-400">Pickup Address</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="Brooklyn, NY" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Delivery Address</label>
+                  <label class="text-xs text-slate-400">Delivery Address</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="Los Angeles, CA" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Pickup Zone</label>
-                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="NY Area" />
-                </div>
-                <div>
-                  <label class="text-xs font-semibold text-slate-500">Delivery Zone</label>
-                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="CA South" />
-                </div>
-                <div>
-                  <label class="text-xs font-semibold text-slate-500">Distance</label>
+                  <label class="text-xs text-slate-400">Distance</label>
                   <input class="mt-1 w-full border rounded-lg px-3 py-2" value="2800 mi" />
                 </div>
+
                 <div>
-                  <label class="text-xs font-semibold text-slate-500">Delivery Type</label>
+                  <label class="text-xs text-slate-400">Pickup Zone</label>
+                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="NY Area" />
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Delivery Zone</label>
+                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="CA South" />
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Delivery Type</label>
                   <select class="mt-1 w-full border rounded-lg px-3 py-2">
                     <option>Consolidated route</option>
                     <option>Exclusive delivery</option>
-                    <option>Warehouse delivery</option>
+                    <option>Requested delivery date</option>
                   </select>
                 </div>
               </div>
 
-              <div class="mt-4 grid grid-cols-3 gap-3">
-                <div class="bg-amber-50 text-amber-700 rounded-lg p-3 text-sm">NYC tolls included</div>
-                <div class="bg-amber-50 text-amber-700 rounded-lg p-3 text-sm">Parking risk applied</div>
-                <div class="bg-blue-50 text-blue-700 rounded-lg p-3 text-sm">Next route: May 24</div>
+              <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Nearest Route</p>
+                  <p class="font-semibold text-slate-800">May 24</p>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Estimated Transit</p>
+                  <p class="font-semibold text-slate-800">10 days</p>
+                </div>
+
+                <div class="bg-amber-50 rounded-lg p-3">
+                  <p class="text-xs text-amber-600">NYC Route Fees</p>
+                  <p class="font-semibold text-amber-700">Tolls / parking applied</p>
+                </div>
               </div>
             </section>
 
-            <!-- Service Options -->
+            <!-- Estimate-Level Options -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="text-lg font-bold text-slate-800">Service Options</h3>
+              <h3 class="font-bold text-slate-800 mb-4">Estimate-Level Options</h3>
 
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> применить дополнительные услуги, влияющие на итоговую цену.</p>
-                    <p class="mt-2"><b>Используется для:</b> упаковки, крейтинга, хранения, подъёма по лестнице, exclusive delivery и fragile handling.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> каждая опция должна быть отдельным pricing component с правилом расчёта и возможностью аудита в Cost Breakdown.</p>
-                  </div>
+              <div class="grid grid-cols-4 gap-4 text-sm">
+                <div>
+                  <label class="text-xs text-slate-400">Liability / Insurance</label>
+                  <select class="mt-1 w-full border rounded-lg px-3 py-2">
+                    <option>Basic Liability ($0.60/lb)</option>
+                    <option>Full Coverage</option>
+                    <option>Declared Value</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Declared Value</label>
+                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="1500" />
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Full Coverage Rate</label>
+                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="3%" />
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Storage Days</label>
+                  <input class="mt-1 w-full border rounded-lg px-3 py-2" value="3" />
                 </div>
               </div>
 
-              <div class="grid grid-cols-4 gap-3">
-                <div class="border rounded-xl p-4 bg-teal-50 border-teal-200">
-                  <p class="font-semibold text-slate-800">Packing</p>
-                  <p class="text-xs text-slate-500 mt-1">Per item</p>
-                </div>
-                <div class="border rounded-xl p-4">
-                  <p class="font-semibold text-slate-800">Crating</p>
-                  <p class="text-xs text-slate-500 mt-1">Material + labor</p>
-                </div>
-                <div class="border rounded-xl p-4">
-                  <p class="font-semibold text-slate-800">Storage</p>
-                  <p class="text-xs text-slate-500 mt-1">Per cu ft / day</p>
-                </div>
-                <div class="border rounded-xl p-4 bg-amber-50 border-amber-200">
-                  <p class="font-semibold text-slate-800">Stairs</p>
-                  <p class="text-xs text-slate-500 mt-1">4th floor+</p>
-                </div>
-                <div class="border rounded-xl p-4">
-                  <p class="font-semibold text-slate-800">Elevator unavailable</p>
-                  <p class="text-xs text-slate-500 mt-1">Labor multiplier</p>
-                </div>
-                <div class="border rounded-xl p-4">
-                  <p class="font-semibold text-slate-800">Exclusive</p>
-                  <p class="text-xs text-slate-500 mt-1">Dedicated delivery</p>
-                </div>
-                <div class="border rounded-xl p-4 bg-teal-50 border-teal-200">
-                  <p class="font-semibold text-slate-800">Fragile</p>
-                  <p class="text-xs text-slate-500 mt-1">Extra handling</p>
-                </div>
-                <div class="border rounded-xl p-4">
-                  <p class="font-semibold text-slate-800">White-glove</p>
-                  <p class="text-xs text-slate-500 mt-1">Room placement</p>
-                </div>
+              <div class="grid grid-cols-4 gap-3 mt-4 text-sm">
+                <label class="flex items-center gap-2 bg-slate-50 rounded-lg p-3">
+                  <input type="checkbox" checked class="accent-teal-500" />
+                  Storage required
+                </label>
+
+                <label class="flex items-center gap-2 bg-slate-50 rounded-lg p-3">
+                  <input type="checkbox" class="accent-teal-500" />
+                  Exclusive delivery
+                </label>
+
+                <label class="flex items-center gap-2 bg-slate-50 rounded-lg p-3">
+                  <input type="checkbox" class="accent-teal-500" />
+                  Requested delivery date
+                </label>
+
+                <label class="flex items-center gap-2 bg-slate-50 rounded-lg p-3">
+                  <input type="checkbox" class="accent-teal-500" />
+                  White glove
+                </label>
               </div>
             </section>
 
-            <!-- Items -->
+            <!-- Items / Access Summary -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
               <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
-                  <h3 class="text-lg font-bold text-slate-800">Items</h3>
+                <h3 class="font-bold text-slate-800">Items & Access Summary</h3>
+                <a href="items.html" class="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm hover:bg-teal-600">Manage Items</a>
+              </div>
 
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                      <p><b>Назначение:</b> показать краткий состав груза внутри расчёта.</p>
-                      <p class="mt-2"><b>Используется для:</b> проверки volume, weight, effective volume, packaging и vehicle fit.</p>
-                      <p class="mt-2"><b>Как реализовать:</b> детальное редактирование переносится на отдельный экран items.html, чтобы не перегружать основной quote flow.</p>
-                    </div>
-                  </div>
+              <div class="grid grid-cols-4 gap-3 text-sm">
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Item Lines</p>
+                  <p class="font-bold text-lg">3</p>
                 </div>
 
-                <div class="flex gap-2">
-                  <a href="items.html" class="px-3 py-2 rounded-lg border text-sm hover:bg-slate-50">Manage Items</a>
-                  <a href="items.html" class="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm hover:bg-teal-600">Open Items</a>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Total Qty</p>
+                  <p class="font-bold text-lg">7</p>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Weight</p>
+                  <p class="font-bold text-lg">730 lb</p>
+                </div>
+
+                <div class="bg-amber-50 rounded-lg p-3">
+                  <p class="text-xs text-amber-600">Effective Volume</p>
+                  <p class="font-bold text-lg text-amber-700">153.5 cu ft</p>
                 </div>
               </div>
 
-              <div class="space-y-4">
-                <div class="border rounded-xl p-4">
-                  <div class="flex justify-between">
-                    <div>
-                      <h4 class="font-bold text-slate-800">Monumental Trueform Concrete Table</h4>
-                      <p class="text-xs text-slate-500">Furniture / Table</p>
-                    </div>
-                    <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-700 font-semibold">Heavy</span>
-                  </div>
-
-                  <div class="grid grid-cols-4 gap-3 mt-4">
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Physical Volume</p>
-                      <p class="font-bold">81.02 cu ft</p>
-                    </div>
-                    <div class="bg-amber-50 rounded-lg p-3">
-                      <p class="text-xs text-amber-600">Effective Volume</p>
-                      <p class="font-bold text-amber-700">128.00 cu ft</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Handling</p>
-                      <p class="font-bold">2 people</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Price Impact</p>
-                      <p class="font-bold">$407</p>
-                    </div>
-                  </div>
+              <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Flags</p>
+                  <p class="font-semibold">2 fragile · 1 non-stackable · 1 crate</p>
                 </div>
 
-                <div class="border rounded-xl p-4">
-                  <div class="flex justify-between">
-                    <div>
-                      <h4 class="font-bold text-slate-800">Glass Monitor</h4>
-                      <p class="text-xs text-slate-500">Electronics / Monitor</p>
-                    </div>
-                    <span class="px-3 py-1 text-xs rounded-full bg-amber-100 text-amber-700 font-semibold">Fragile</span>
-                  </div>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Access</p>
+                  <p class="font-semibold">Delivery stairs · long carry 50 ft</p>
+                </div>
 
-                  <div class="grid grid-cols-4 gap-3 mt-4">
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Physical Volume</p>
-                      <p class="font-bold">6.11 cu ft</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Effective Volume</p>
-                      <p class="font-bold">8.00 cu ft</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Handling</p>
-                      <p class="font-bold">Standard</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                      <p class="text-xs text-slate-400">Price Impact</p>
-                      <p class="font-bold">$84</p>
-                    </div>
-                  </div>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-400">Vehicle Fit</p>
+                  <p class="font-semibold">Sprinter 488 / Enterprise 26 ft</p>
                 </div>
               </div>
             </section>
 
             <!-- Warnings -->
             <section class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="flex items-center gap-2 mb-4">
-                <h3 class="text-lg font-bold text-slate-800">Operational Warnings</h3>
+              <h3 class="font-bold text-slate-800 mb-4">Calculation Warnings</h3>
 
-                <div class="relative group">
-                  <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                  <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 left-0 top-6">
-                    <p><b>Назначение:</b> подсветить риски расчёта до отправки Estimate клиенту.</p>
-                    <p class="mt-2"><b>Используется для:</b> предупреждения ошибок по весу, объёму, упаковке, лестницам, tolls и vehicle fit.</p>
-                    <p class="mt-2"><b>Как реализовать:</b> backend должен возвращать список warning rules после пересчёта quote.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="space-y-3">
-                <div class="p-3 rounded-lg bg-red-50 text-red-700 text-sm">Concrete table exceeds one-person weight limit. 2 people required.</div>
-                <div class="p-3 rounded-lg bg-amber-50 text-amber-700 text-sm">Non-stackable item increases effective volume from 81.02 to 128 cu ft.</div>
-                <div class="p-3 rounded-lg bg-blue-50 text-blue-700 text-sm">Crating recommended for fragile and oversized item.</div>
+              <div class="grid grid-cols-3 gap-3 text-sm">
+                <div class="p-3 rounded-lg bg-red-50 text-red-700">Heavy item requires 2-person handling</div>
+                <div class="p-3 rounded-lg bg-amber-50 text-amber-700">Non-stackable increases effective volume</div>
+                <div class="p-3 rounded-lg bg-blue-50 text-blue-700">Final price rounded up to nearest $10</div>
               </div>
             </section>
+
           </div>
 
           <!-- Right Summary -->
           <aside class="col-span-4">
             <div class="sticky top-24 space-y-6">
 
+              <!-- Final Price -->
               <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <div class="flex items-center gap-2 mb-1">
-                  <p class="text-sm text-slate-500">Final Price</p>
+                <h3 class="font-bold text-slate-800 mb-4">Price Preview</h3>
 
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-96 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                      <p><b>Назначение:</b> показать итоговую стоимость и breakdown для быстрого принятия решения.</p>
-                      <p class="mt-2"><b>Используется для:</b> проверки цены до отправки estimate клиенту.</p>
-                      <p class="mt-2"><b>Как реализовать:</b> все components должны храниться в calculation breakdown с formula version и variables snapshot.</p>
-                    </div>
-                  </div>
+                <div class="text-center py-4 border-b border-slate-200">
+                  <p class="text-sm text-slate-500">Final Rounded Price</p>
+                  <p class="text-5xl font-bold text-slate-900 mt-1">$1,130</p>
+                  <p class="text-xs text-slate-400 mt-2">Customer-facing estimate</p>
                 </div>
 
-                <h2 class="text-4xl font-bold text-slate-900 mt-1">$ 1,126</h2>
-                <p class="text-xs text-teal-600 mt-2">incl. insurance $ 27.50</p>
-
-                <div class="mt-5 space-y-3 text-sm">
-                  <div class="flex justify-between"><span>Pickup</span><b>$ 236</b></div>
-                  <div class="flex justify-between"><span>Interstate</span><b>$ 522</b></div>
-                  <div class="flex justify-between"><span>Delivery</span><b>$ 164</b></div>
-                  <div class="flex justify-between"><span>Packaging</span><b>$ 48</b></div>
-                  <div class="flex justify-between"><span>Insurance</span><b>$ 27</b></div>
-                  <div class="flex justify-between"><span>Tolls / Parking</span><b>$ 58</b></div>
-                  <div class="flex justify-between border-t pt-3"><span>Cost of Service</span><b>$ 871.11</b></div>
+                <div class="space-y-3 text-sm mt-5">
+                  <div class="flex justify-between"><span>Cost of Service</span><b>$871.11</b></div>
+                  <div class="flex justify-between"><span>Margin</span><b>$254.89</b></div>
+                  <div class="flex justify-between"><span>Raw Final Price</span><b>$1,126.00</b></div>
+                  <div class="flex justify-between"><span>Rounding Delta</span><b class="text-teal-600">+$4.00</b></div>
+                  <div class="flex justify-between border-t pt-3"><span>Rounded Rule</span><b>UP to $10</b></div>
                 </div>
               </section>
 
-              <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <div class="flex items-center gap-2 mb-4">
-                  <h3 class="font-bold text-slate-800">Vehicle Recommendation</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                      <p><b>Назначение:</b> подобрать транспорт на основании веса, effective volume и ограничений груза.</p>
-                      <p class="mt-2"><b>Как реализовать:</b> engine сравнивает item list с vehicle capacity, payload и route type.</p>
+                <!-- Cost Components -->
+                <details class="bg-white rounded-xl border border-slate-200 overflow-hidden group" open>
+                
+                  <summary class="cursor-pointer list-none flex items-center justify-between px-5 py-4 hover:bg-slate-50">
+                
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-slate-800">Cost Components</h3>
+                
+                      <span class="text-xs text-slate-400">
+                        operational breakdown
+                      </span>
                     </div>
-                  </div>
-                </div>
-
-                <div class="space-y-3 text-sm">
-                  <div class="flex justify-between"><span>Pickup</span><b>Sprinter 488 cu ft</b></div>
-                  <div class="flex justify-between"><span>Interstate</span><b>Enterprise 26 ft</b></div>
-                  <div class="flex justify-between"><span>Delivery</span><b>Sprinter 488 cu ft</b></div>
-                  <div class="flex justify-between"><span>Utilization</span><b>68%</b></div>
-                  <div class="flex justify-between"><span>Team</span><b>2 people</b></div>
-                </div>
-              </section>
-
-              <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <div class="flex items-center gap-2 mb-4">
-                  <h3 class="font-bold text-slate-800">Margin / Profitability</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                      <p><b>Назначение:</b> показать экономику quote до отправки клиенту.</p>
-                      <p class="mt-2"><b>Риск:</b> без formula version и variables snapshot старые estimates могут стать неаудируемыми.</p>
+                
+                    <i data-lucide="chevron-down"
+                       class="w-5 h-5 text-slate-400 group-open:rotate-180 transition">
+                    </i>
+                  </summary>
+                
+                  <div class="border-t border-slate-200 p-5">
+                
+                    <div class="space-y-3 text-sm">
+                
+                      <div class="flex justify-between">
+                        <span>Pickup</span>
+                        <b>$236</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Interstate</span>
+                        <b>$522</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Delivery</span>
+                        <b>$164</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Packaging</span>
+                        <b>$48</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Storage</span>
+                        <b>$18</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Insurance Fee</span>
+                        <b>$0</b>
+                      </div>
+                
+                      <div class="flex justify-between border-t pt-3">
+                        <span>Items Impact</span>
+                        <b>$602</b>
+                      </div>
+                
                     </div>
+                
                   </div>
-                </div>
-
-                <div class="space-y-3 text-sm">
-                  <div class="flex justify-between"><span>Margin Rate</span><b>30%</b></div>
-                  <div class="flex justify-between"><span>Projected Profit</span><b>$ 254.89</b></div>
-                  <div class="flex justify-between"><span>Formula Version</span><b>v1.0</b></div>
-                </div>
-              </section>
-
-              <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <div class="flex items-center gap-2 mb-4">
-                  <h3 class="font-bold text-slate-800">Delivery Window</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                      <p><b>Назначение:</b> показать ближайшую доступную дату доставки.</p>
-                      <p class="mt-2"><b>Как реализовать:</b> на MVP можно использовать справочник route calendar, позже подключить capacity planning.</p>
+                </details>
+                
+                <!-- Liability -->
+                <details class="bg-white rounded-xl border border-slate-200 overflow-hidden group">
+                
+                  <summary class="cursor-pointer list-none flex items-center justify-between px-5 py-4 hover:bg-slate-50">
+                
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-slate-800">Liability / Insurance</h3>
+                
+                      <span class="text-xs text-slate-400">
+                        customer protection
+                      </span>
                     </div>
+                
+                    <i data-lucide="chevron-down"
+                       class="w-5 h-5 text-slate-400 group-open:rotate-180 transition">
+                    </i>
+                  </summary>
+                
+                  <div class="border-t border-slate-200 p-5">
+                
+                    <div class="space-y-3 text-sm">
+                
+                      <div class="flex justify-between">
+                        <span>Selected Type</span>
+                        <b>Basic Liability</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Basic Coverage</span>
+                        <b>$438</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Declared Value</span>
+                        <b>$1,500</b>
+                      </div>
+                
+                      <div class="flex justify-between">
+                        <span>Full Coverage Fee</span>
+                        <b>$45</b>
+                      </div>
+                
+                      <div class="flex justify-between border-t pt-3">
+                        <span>Applied Fee</span>
+                        <b>$0</b>
+                      </div>
+                
+                    </div>
+                
+                    <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-500">
+                      Basic Liability = Total Weight × $0.60/lb<br>
+                      Full Coverage = Declared Value × Insurance Rate
+                    </div>
+                
                   </div>
-                </div>
+                </details>
 
-                <div class="space-y-3 text-sm">
-                  <div class="flex justify-between"><span>Nearest Date</span><b>May 24</b></div>
-                  <div class="flex justify-between"><span>Transit Time</span><b>10 days</b></div>
-                  <div class="flex justify-between"><span>Exclusive Option</span><b>Available</b></div>
+              <!-- Actions -->
+              <section class="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 mb-4">Next Step</h3>
+
+                <div class="space-y-3">
+                  <a href="items.html" class="block w-full text-center px-4 py-3 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50">
+                    Edit Items
+                  </a>
+
+                  <a href="breakdown.html" class="block w-full text-center px-4 py-3 rounded-lg bg-teal-500 text-white font-semibold hover:bg-teal-600">
+                    Open Cost Breakdown
+                  </a>
+
+                  <button class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white font-semibold hover:bg-slate-900">
+                    Generate Estimate
+                  </button>
                 </div>
               </section>
 
             </div>
           </aside>
+
         </div>
 
         <!-- BA Notes -->
@@ -512,7 +530,7 @@
 
                 <div>
                   <h3 class="font-semibold text-slate-800">Business Analysis Notes</h3>
-                  <p class="text-xs text-slate-400 mt-1">MVP v0.1 · Pre-development concept · New Calculation</p>
+                  <p class="text-xs text-slate-400 mt-1">MVP v0.5 · Index · Estimate entry point</p>
                 </div>
               </div>
 
@@ -524,78 +542,55 @@
             <div class="border-t border-slate-200 bg-slate-50 px-5 py-5">
 
               <div class="mb-6">
-                <h4 class="font-semibold text-slate-800 mb-2">Общая цель страницы</h4>
+                <h4 class="font-semibold text-slate-800 mb-2">Роль страницы</h4>
                 <p class="text-sm text-slate-600 leading-6">
-                  Экран предназначен для быстрого создания estimate брокером.
-                  Основная задача страницы — собрать минимально достаточные данные по клиенту,
-                  маршруту, составу груза, дополнительным услугам и сразу показать предварительную стоимость,
-                  vehicle recommendation, margin и delivery window.
+                  Index является главным экраном создания estimate. Здесь брокер вводит клиента,
+                  маршрут, базовые условия и видит быстрый price preview. Детальная работа с items
+                  вынесена в items.html, а финальное объяснение цены — в breakdown.html.
                 </p>
               </div>
 
               <div class="mb-6">
-                <h4 class="font-semibold text-slate-800 mb-2">Основные бизнес-сущности</h4>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Lead</b><p class="text-slate-500 mt-1">Входящий запрос из CRM / сайта / партнёра</p></div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Customer</b><p class="text-slate-500 mt-1">Клиент, связанный с estimate</p></div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Estimate</b><p class="text-slate-500 mt-1">Предварительный расчёт стоимости</p></div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Item</b><p class="text-slate-500 mt-1">Позиция груза с размерами и ограничениями</p></div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Route</b><p class="text-slate-500 mt-1">Маршрут, зоны, расстояние и тип доставки</p></div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3"><b>Vehicle</b><p class="text-slate-500 mt-1">Транспорт, подобранный под груз</p></div>
-                </div>
-              </div>
-
-              <div class="mb-6">
-                <h4 class="font-semibold text-slate-800 mb-2">Основные формулы расчёта</h4>
-
-                <div class="space-y-3 text-sm">
-                  <div class="bg-white border border-slate-200 rounded-lg p-4">
-                    <p class="font-medium text-slate-800">Physical Volume</p>
-                    <code class="block mt-2 text-slate-600">(Length × Width × Height) / 1728</code>
-                  </div>
-
-                  <div class="bg-white border border-slate-200 rounded-lg p-4">
-                    <p class="font-medium text-slate-800">Effective Volume</p>
-                    <code class="block mt-2 text-slate-600">Physical Volume × stackability coefficient</code>
-                    <p class="mt-2 text-slate-500">Учитывает non-stackable, fragile, crating, orientation restrictions и packaging.</p>
-                  </div>
-
-                  <div class="bg-white border border-slate-200 rounded-lg p-4">
-                    <p class="font-medium text-slate-800">Final Price</p>
-                    <code class="block mt-2 text-slate-600">Cost of Service + Margin + Insurance + Additional Fees</code>
-                  </div>
-
-                  <div class="bg-white border border-slate-200 rounded-lg p-4">
-                    <p class="font-medium text-slate-800">Cost of Service</p>
-                    <code class="block mt-2 text-slate-600">Pickup Cost + Interstate Cost + Delivery Cost + Packaging + Storage + Tolls + Parking</code>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mb-6">
-                <h4 class="font-semibold text-slate-800 mb-2">Ключевые бизнес-правила</h4>
-
+                <h4 class="font-semibold text-slate-800 mb-2">Разделение логики</h4>
                 <ul class="space-y-2 text-sm text-slate-600 list-disc pl-5">
-                  <li>Packaging должна считаться по item, а не фиксой на весь заказ.</li>
-                  <li>Non-stackable увеличивает effective volume и влияет на vehicle fit.</li>
-                  <li>Heavy item требует дополнительного handling и может менять team size.</li>
-                  <li>NYC tolls, parking и ticket risk должны быть отдельными pricing components.</li>
-                  <li>Estimate должен хранить formula version и snapshot variables на момент расчёта.</li>
-                  <li>После approval estimate должен блокироваться от незаметного пересчёта.</li>
+                  <li><b>index.html:</b> быстрый quote overview и route/customer context.</li>
+                  <li><b>items.html:</b> item-level details, packaging, fragile, non-stackable, access conditions.</li>
+                  <li><b>breakdown.html:</b> полный расчёт цены, margin, rounding, audit.</li>
+                  <li><b>variables.html:</b> admin variables, rates, coefficients, fuel, vehicles.</li>
                 </ul>
               </div>
 
+              <div class="mb-6">
+                <h4 class="font-semibold text-slate-800 mb-2">Ключевые формулы</h4>
+
+                <div class="space-y-3 text-sm">
+                  <div class="bg-white border border-slate-200 rounded-lg p-4">
+                    <p class="font-medium text-slate-800">Final Rounded Price</p>
+                    <code class="block mt-2 text-slate-600">Rounded Final Price = CEILING(Raw Final Price, 10)</code>
+                  </div>
+
+                  <div class="bg-white border border-slate-200 rounded-lg p-4">
+                    <p class="font-medium text-slate-800">Basic Liability</p>
+                    <code class="block mt-2 text-slate-600">Total Weight × $0.60/lb</code>
+                  </div>
+
+                  <div class="bg-white border border-slate-200 rounded-lg p-4">
+                    <p class="font-medium text-slate-800">Full Coverage Fee</p>
+                    <code class="block mt-2 text-slate-600">Declared Value × Full Coverage Rate</code>
+                  </div>
+                </div>
+              </div>
+
               <div>
-                <h4 class="font-semibold text-slate-800 mb-2">Требования к дальнейшей реализации</h4>
+                <h4 class="font-semibold text-slate-800 mb-2">Требования к разработке</h4>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">pricing engine с audit breakdown</div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">item management как отдельный экран</div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">vehicle allocation logic</div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">distance & zone calculation</div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">formula versioning</div>
-                  <div class="bg-white border border-slate-200 rounded-lg p-3">Estimate → Invoice → Order lifecycle</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">estimate entity</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">lead / customer binding</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">route and zone calculation</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">nearest delivery date calculation</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">price preview from pricing engine</div>
+                  <div class="bg-white border border-slate-200 rounded-lg p-3">navigation to items and breakdown</div>
                 </div>
               </div>
 
