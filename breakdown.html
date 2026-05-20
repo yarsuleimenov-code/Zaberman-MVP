@@ -357,38 +357,141 @@
 
           </div>
 
-          <!-- Right Summary -->
-          <aside class="col-span-4">
-            <div class="sticky top-24 space-y-6">
-
-              <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <div class="flex items-center gap-2 mb-4">
-                  <h3 class="font-bold text-slate-800">Final Price Structure</h3>
-
-                  <div class="relative group">
-                    <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
-                    <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
-                      <p><b>Назначение:</b> показать верхнеуровневую структуру цены.</p>
-                      <p class="mt-2"><b>Используется для:</b> финальной проверки перед отправкой estimate.</p>
+            <!-- Right Summary -->
+            <aside class="col-span-4">
+              <div class="sticky top-24 space-y-6">
+            
+                <!-- Final Price Structure -->
+                <section class="bg-white rounded-xl border border-slate-200 p-5">
+            
+                  <div class="flex items-center gap-2 mb-4">
+                    <h3 class="font-bold text-slate-800">
+                      Final Price Structure
+                    </h3>
+            
+                    <div class="relative group">
+                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
+            
+                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
+                        <p>
+                          <b>Назначение:</b> показать итоговую структуру цены estimate.
+                        </p>
+            
+                        <p class="mt-2">
+                          Используется для финальной проверки profitability,
+                          margin и customer-facing price.
+                        </p>
+            
+                        <p class="mt-2">
+                          Финальная цена всегда округляется вверх
+                          до ближайших 10 долларов.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="text-center py-4">
-                  <p class="text-sm text-slate-500">Final Price</p>
-                  <p class="text-4xl font-bold text-slate-900">$1,126</p>
-                </div>
-
-                <div class="space-y-3 text-sm mt-4">
-                  <div class="flex justify-between"><span>Cost of Service</span><b>$871.11</b></div>
-                  <div class="flex justify-between"><span>Margin</span><b>$254.89</b></div>
-                  <div class="flex justify-between"><span>Margin Rate</span><b>30%</b></div>
-                  <div class="flex justify-between border-t pt-3"><span>Final Price</span><b>$1,126</b></div>
-                </div>
-              </section>
-
-              <section class="bg-white rounded-xl border border-slate-200 p-5">
-                <h3 class="font-bold text-slate-800 mb-4">Operational Cost Distribution</h3>
+            
+                  <!-- Final Price -->
+                  <div class="text-center py-4 border-b border-slate-200">
+            
+                    <p class="text-sm text-slate-500">
+                      Rounded Final Price
+                    </p>
+            
+                    <p class="text-5xl font-bold text-slate-900 mt-1">
+                      $1,130
+                    </p>
+            
+                    <p class="text-xs text-slate-400 mt-2">
+                      Final customer-facing estimate
+                    </p>
+                  </div>
+            
+                  <!-- Price Structure -->
+                  <div class="space-y-3 text-sm mt-5">
+            
+                    <div class="flex justify-between">
+                      <span>Cost of Service</span>
+                      <b>$871.11</b>
+                    </div>
+            
+                    <div class="flex justify-between">
+                      <span>Projected Margin</span>
+                      <b>$254.89</b>
+                    </div>
+            
+                    <div class="flex justify-between">
+                      <span>Margin Rate</span>
+                      <b>30%</b>
+                    </div>
+            
+                    <div class="flex justify-between">
+                      <span>Raw Final Price</span>
+                      <b>$1,126.00</b>
+                    </div>
+            
+                    <div class="flex justify-between">
+                      <span>Rounding Delta</span>
+                      <b class="text-teal-600">+$4.00</b>
+                    </div>
+            
+                    <div class="flex justify-between">
+                      <span>Rounding Rule</span>
+                      <b>UP to nearest $10</b>
+                    </div>
+            
+                    <div class="flex justify-between border-t border-slate-200 pt-3 text-base">
+                      <span class="font-semibold text-slate-800">
+                        Final Rounded Price
+                      </span>
+            
+                      <b class="text-xl text-slate-900">
+                        $1,130
+                      </b>
+                    </div>
+            
+                  </div>
+            
+                  <!-- Formula -->
+                  <div class="mt-5 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
+                    <b>Formula:</b><br><br>
+            
+                    Raw Final Price =
+                    Cost of Service + Margin + Additional Fees<br><br>
+            
+                    Rounded Final Price =
+                    CEILING(Raw Final Price, 10)
+                  </div>
+            
+                </section>
+            
+                <!-- Operational Cost Distribution -->
+                <section class="bg-white rounded-xl border border-slate-200 p-5">
+            
+                  <div class="flex items-center gap-2 mb-4">
+                    <h3 class="font-bold text-slate-800">
+                      Operational Cost Distribution
+                    </h3>
+            
+                    <div class="relative group">
+                      <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
+            
+                      <div class="absolute hidden group-hover:block z-50 w-80 p-4 bg-white border border-slate-200 rounded-xl shadow-xl text-xs text-slate-600 right-0 top-6">
+                        <p>
+                          <b>Назначение:</b> показать структуру operational costs.
+                        </p>
+            
+                        <p class="mt-2">
+                          Используется для понимания,
+                          какие этапы перевозки формируют
+                          основную себестоимость заказа.
+                        </p>
+            
+                        <p class="mt-2">
+                          Margin в данном блоке не участвует.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
                               <!-- Profitability -->
               <section class="bg-white rounded-xl border border-slate-200 p-5 mt-6">
@@ -592,6 +695,21 @@
                   <li>Cost Breakdown должен быть доступен брокеру, администратору и CEO.</li>
                   <li>Все warning rules должны быть видны до отправки estimate.</li>
                 </ul>
+              </div>
+
+                            <div class="bg-white border border-slate-200 rounded-lg p-4">
+                <p class="font-medium text-slate-800">
+                  Final Price Rounding
+                </p>
+              
+                <code class="block mt-2 text-slate-600">
+                  Rounded Final Price = CEILING(Raw Final Price, 10)
+                </code>
+              
+                <p class="mt-2 text-slate-500">
+                  Итоговая цена для клиента всегда округляется
+                  вверх до ближайших 10 долларов.
+                </p>
               </div>
 
               <div>
